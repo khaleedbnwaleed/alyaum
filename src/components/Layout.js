@@ -2,10 +2,10 @@ import React from 'react'
 
 const Layout = ({ children, className = '' }) => {
   return (
-    <div
-      className={`w-full h-full inline-block z-0 bg-dark text-light p-20 lg:p-16 md:p-12 sm:p-8 ${className}`}
-    >
-      {children}
+    <div className={`w-full min-h-screen bg-light pt-24 ${className}`}>
+      <div className="max-w-7xl mx-auto px-12 md:px-6 sm:px-4">
+        {children}
+      </div>
     </div>
   )
 }

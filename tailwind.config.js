@@ -4,36 +4,48 @@ module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
   theme: {
     colors: {
-      dark: '#010101',
-      light: '#f5f5f5',
-      primary: '#ff778c',
-      secondary: '#B63E96',
+      dark: '#0f172a',
+      light: '#f8fafc',
+      slate: {
+        50: '#f8fafc',
+        100: '#f1f5f9',
+        200: '#e2e8f0',
+        300: '#cbd5e1',
+        400: '#94a3b8',
+        500: '#64748b',
+        600: '#475569',
+        700: '#334155',
+        800: '#1e293b',
+        900: '#0f172a',
+      },
+      primary: '#0ea5e9',
+      secondary: '#06b6d4',
+      accent: '#f59e0b',
+      success: '#10b981',
+      danger: '#ef4444',
+      white: '#ffffff',
     },
 
     extend: {
-      fontFamily: {},
+      fontFamily: {
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+      },
       fontSize: {
         xl: '26px',
+      },
+      boxShadow: {
+        soft: '0 2px 8px rgba(15, 23, 42, 0.08)',
+        medium: '0 4px 16px rgba(15, 23, 42, 0.12)',
+        lg: '0 10px 32px rgba(15, 23, 42, 0.15)',
       },
     },
     screens: {
       '2xl': { max: '1535px' },
-      // => @media (max-width: 1535px) { ... }
-
       xl: { max: '1279px' },
-      // => @media (max-width: 1279px) { ... }
-
       lg: { max: '1023px' },
-      // => @media (max-width: 1023px) { ... }
-
       md: { max: '767px' },
-      // => @media (max-width: 767px) { ... }
-
       sm: { max: '639px' },
-      // => @media (max-width: 639px) { ... }
-
       xs: { max: '479px' },
-      // => @media (max-width: 479px) { ... }
     },
   },
   plugins: [],

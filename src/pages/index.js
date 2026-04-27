@@ -2,14 +2,11 @@ import Head from 'next/head'
 import Layout from '@/components/Layout'
 import Image from 'next/image'
 import bgImage from '../../public/images/bg-image.jpg'
-import usman from '../../public/images/usman.jpg'
-import khalid from '../../public/images/khalid.jpg'
-import umar from '../../public/images/umar.jpg'
-import salisu from '../../public/images/salisu.jpg'
 import Link from 'next/link'
 import { SiWebmoney } from 'react-icons/si'
 import { FaDesktop } from 'react-icons/fa'
 import { PiDevicesBold } from 'react-icons/pi'
+import { MdCheckCircle, MdArrowForward } from 'react-icons/md'
 import {
   TwitterIcon,
   GithubIcon,
@@ -17,33 +14,31 @@ import {
   LinkArrow,
 } from '../components/Icons'
 
-const Products = ({ title, summary, link }) => {
+const Products = ({ title, summary, icon, link }) => {
   return (
-    <div
-      id="products"
-      className="col-span-1 md:col-span-3 flex flex-col gap-3 border-2 border-solid border-light p-6 "
-    >
-      <h3 className="text-xl md:text-lg font-semibold text-center text-secondary">
-        {title}
-      </h3>
-      <p>{summary}</p>
+    <div className="card-hover p-8 text-center fade-in">
+      <div className="flex justify-center mb-6">
+        {icon}
+      </div>
+      <h3 className="text-xl font-semibold mb-4 text-slate-900">{title}</h3>
+      <p className="text-slate-600 mb-6 leading-relaxed">{summary}</p>
       {link}
     </div>
   )
 }
 
-const Services = ({ service, icon }) => {
+const Services = ({ service, description, icon }) => {
   return (
-    <div id="services" className="col-span-1 md:col-span-3">
-      <div className="flex flex-col md:flex-row justify-center items-center gap-16">
-        <div className="md:w-full w-80 p-8 md:p-16 flex flex-col gap-y-6 text-center rounded-lg shadow-3xl hover:scale-110 hover:transition-all border-2 border-light border-solid">
-          <p className="self-center">{icon}</p>
-          <p className="">{service}</p>
-        </div>
+    <div className="card-hover p-8 text-center fade-in">
+      <div className="flex justify-center mb-6">
+        {icon}
       </div>
+      <h3 className="text-xl font-semibold mb-4 text-slate-900">{service}</h3>
+      <p className="text-slate-600 leading-relaxed">{description}</p>
     </div>
   )
 }
+
 const Team = ({
   fullName,
   name,
@@ -54,211 +49,249 @@ const Team = ({
   githubLink,
 }) => {
   return (
-    <div className="col-span-1 md:col-span-4 flex flex-col gap-y-4 items-center p-4 py-6 border-2 border-solid border-light">
-      <Image src={img} alt={name} className="w-44 h-44 rounded-full" />
-      <h3 className="text-xl md:text-lg font-semibold">{fullName}</h3>
-      <p className="text-base text-center">{bio}</p>
-      <nav className="flex items-center justify-center flex-wrap">
-        <a href={twitterLink} target={'_blank'} className="w-6 mr-3 sm:mx-1">
+    <div className="card-hover p-6 text-center fade-in">
+      <img
+        src={img}
+        alt={name}
+        className="w-32 h-32 rounded-full mx-auto mb-4 object-cover"
+      />
+      <h3 className="text-xl font-semibold mb-2 text-slate-900">{fullName}</h3>
+      <p className="text-slate-600 mb-6 text-sm leading-relaxed">{bio}</p>
+      <div className="flex justify-center gap-4">
+        <a
+          href={twitterLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-6 h-6 text-slate-400 hover:text-primary transition-colors"
+        >
           <TwitterIcon />
         </a>
         <a
           href={githubLink}
-          target={'_blank'}
-          className="w-6 mx-3 bg-dark rounded-full sm:mx-1"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-6 h-6 text-slate-400 hover:text-primary transition-colors"
         >
           <GithubIcon />
         </a>
-        <a href={linkedInLink} target={'_blank'} className="w-6 ml-3 sm:mx-1">
+        <a
+          href={linkedInLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-6 h-6 text-slate-400 hover:text-primary transition-colors"
+        >
           <LinkedInIcon />
         </a>
-      </nav>
+      </div>
     </div>
+  )
+}
+
+const HeroSection = () => {
+  return (
+    <section className="section bg-gradient-to-br from-slate-50 to-white">
+      <div className="grid grid-cols-2 md:grid-cols-1 gap-12 md:gap-8 items-center">
+        <div className="slide-in-left space-y-8">
+          <div>
+            <h1 className="text-6xl md:text-4xl sm:text-3xl font-bold text-slate-900 mb-4 leading-tight">
+              Turning Imaginations Into Reality
+            </h1>
+            <div className="h-1 w-24 bg-gradient-to-r from-primary to-secondary rounded-full"></div>
+          </div>
+          <p className="text-lg text-slate-600 leading-relaxed max-w-lg">
+            We specialize in software solutions for growing businesses. Customized software streamlines processes and helps you realize your dream of a thriving business.
+          </p>
+          <div className="flex gap-4 md:flex-col flex-wrap">
+            <Link href="#contact" className="btn-primary inline-flex">
+              Get Started
+              <MdArrowForward className="w-5 h-5 ml-2" />
+            </Link>
+            <Link href="#about" className="btn-secondary inline-flex">
+              Learn More
+            </Link>
+          </div>
+        </div>
+        <div className="slide-in-right">
+          <div className="relative">
+            <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-2xl blur-2xl"></div>
+            <Image
+              src={bgImage}
+              alt="Technology Solutions"
+              className="w-full h-auto rounded-2xl shadow-lg relative z-10"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+const AboutSection = () => {
+  return (
+    <section className="section bg-gradient-to-b from-slate-50 to-white" id="about">
+      <div className="section-title">
+        <h2>About AlyaumTech</h2>
+        <p>Driving innovation through technology</p>
+      </div>
+      <div className="grid grid-cols-2 md:grid-cols-1 gap-12 md:gap-8">
+        <div className="fade-in card p-8 border-l-4 border-primary">
+          <h3 className="text-2xl font-semibold mb-4 text-slate-900 flex items-center gap-2">
+            <span className="text-primary">✓</span> Our Mission
+          </h3>
+          <p className="text-slate-600 leading-relaxed">
+            To empower businesses with cutting-edge software solutions, leveraging innovative technologies,
+            and delivering exceptional value through tailored development services.
+          </p>
+        </div>
+        <div className="fade-in card p-8 border-l-4 border-secondary">
+          <h3 className="text-2xl font-semibold mb-4 text-slate-900 flex items-center gap-2">
+            <span className="text-secondary">◆</span> Our Vision
+          </h3>
+          <p className="text-slate-600 leading-relaxed">
+            To be a leading software development partner for startups, recognized for our commitment to
+            excellence, agility in delivery, and driving digital transformation through impactful solutions.
+          </p>
+        </div>
+      </div>
+    </section>
   )
 }
 export default function Home() {
   return (
     <>
       <Head>
-        <title>AlyaumTech</title>
-        <meta name="description" content="Generated by create next app" />
+        <title>AlyaumTech - Innovative Software Solutions</title>
+        <meta name="description" content="Empowering businesses with cutting-edge software solutions. Web development, software consultancy, and innovative technology services." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="flex items-center w-full min-h-screen my-6 bg-dark text-light">
-        <Layout className="pt-0 md:pt-16 sm:pt-8">
-          <div className="flex items-center justify-between gap-8 w-full lg:flex-col my-8">
-            <div className="w-1/2 md:w-full">
-              <Image
-                src={bgImage}
-                alt="backgound image"
-                className="w-full h-auto lg:hidden md:inline-block md:w-full"
-                priority
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              />
+      <main>
+        <Layout>
+          <HeroSection />
+
+          <AboutSection />
+
+          <section className="section" id="products">
+            <div className="section-title">
+              <h2>Our Products</h2>
+              <p>Innovative solutions designed for modern businesses</p>
             </div>
-            <div className="w-1/2 flex flex-col items-center self-center lg:w-full lg:text-center text-light">
-              <h1 className="font-bold text-6xl text-left xl:text-6xl lg:text-center lg:text-6xl md:text-5xl sm:text-3xl">
-                Turning Imaginations To Reality
-              </h1>
-              <p className="my-2 text-base font-medium md:text-sm sm:text-xs">
-                We specialize in software solutions for growing businesses.
-                Learn how customized software streamlines processes and helps
-                you realize your dream of a thriving business.
-              </p>
-              <div
-                id="contact"
-                className="flex items-center self-start mt-2 lg:self-center"
-              >
-                <Link
-                  href="mailto:usmanyahaya6967@gmail.com"
-                  target="_blank"
-                  className="flex items-center bg-dark text-light dark:bg-light dark:text-dark p-2 px-6 md:p-1.5 md:px-4 md:text-base rounded text-lg font-semibold hover:bg-light hover:text-dark border-2 border-solid border-transparent hover:border-dark hover:dark:bg-dark hover:dark:text-light hover:dark:border-light"
-                >
-                  Contact <LinkArrow className={'w-6 ml-1'} />
-                </Link>
-              </div>
-            </div>
-          </div>
-          <div className="my-32 grid grid-cols-2 gap-6">
-            <div className="col-span-1 md:col-span-2 flex flex-col gap-y-2">
-              <h2 className="font-bold text-xl md:text-lg text-secondary underline underline-offset-2">
-                Mission
-              </h2>
-              <p className="text-lg">
-                To empower businesses with cutting-edge software solutions,
-                leveraging innovative technologies, and delivering exceptional
-                value through tailored development services.
-              </p>
-            </div>
-            <div
-              className="col-span-1 md:col-span-2 flex flex-col gap-y-2"
-              id="about"
-            >
-              <h2 className="font-bold text-xl md:text-lg text-secondary underline underline-offset-2 md:text-right">
-                Vision
-              </h2>
-              <p className="text-lg">
-                To be a leading software development partner for startups,
-                recognized for our commitment to excellence, agility in
-                delivery, and driving digital transformation through impactful
-                solutions.
-              </p>
-            </div>
-          </div>
-          <div className="my-32 flex flex-col gap-3" id="products">
-            <h2 className="text-center mb-12 text-4xl md:text-xl font-bold underline underline-offset-2">
-              Our Products
-            </h2>
-            <div className="grid grid-cols-3 gap-6 items-center">
+            <div className="grid grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-8">
               <Products
                 title="AlyaumHealth"
-                summary="State and federal health and social services face increasing and often 
-                evolving challenges. We help them find their way forward with products and services 
-                designed to increase efficiency and improve health."
+                summary="State and federal health and social services face increasing challenges. We help them find their way forward with products designed to increase efficiency and improve health outcomes."
+                icon={<MdCheckCircle className="w-8 h-8 text-primary" />}
                 link={
-                  <Link
-                    href="/alyaum.ng"
-                    target="_blank"
-                    className="mt-6 p-1 px-4 border border-solid border-light bg-secondary w-fit text-center text-light self-center"
-                  >
-                    Read more
+                  <Link href="/alyaum.ng" target="_blank" className="btn-outline text-sm">
+                    Learn More
                   </Link>
                 }
               />
               <Products
                 title="AlyaumAgro"
-                summary="At AlyaumAgro, we focus on using the latest technology to optimize your agricultural processes. We drive innovation by making this technology accessible to farmers. "
+                summary="At AlyaumAgro, we focus on using the latest technology to optimize agricultural processes. We drive innovation by making this technology accessible to farmers."
+                icon={<MdCheckCircle className="w-8 h-8 text-primary" />}
                 link={
-                  <Link
-                    href="/alyaum.ng"
-                    target="_blank"
-                    className=" mt-6 p-1 px-4 border border-solid border-light bg-secondary w-fit text-center text-light self-center"
-                  >
-                    Read more
+                  <Link href="/alyaum.ng" target="_blank" className="btn-outline text-sm">
+                    Learn More
                   </Link>
                 }
               />
               <Products
                 title="AlyaumLearn"
-                summary="AlyaumLearn is committed to providing access to global experiences for all 
-                through study abroad opportunities, scholarships, training and conferences, fellowships, 
-                grants and awards, jobs, internships, and volunteer programs."
+                summary="AlyaumLearn is committed to providing access to global experiences through study abroad opportunities, scholarships, training, and professional development programs."
+                icon={<MdCheckCircle className="w-8 h-8 text-primary" />}
                 link={
-                  <Link
-                    href="/alyaum.ng"
-                    target="_blank"
-                    className=" mt-6 p-1 px-4 border border-solid border-light bg-secondary w-fit text-center text-light self-center"
-                  >
-                    Read more
+                  <Link href="/alyaum.ng" target="_blank" className="btn-outline text-sm">
+                    Learn More
                   </Link>
                 }
               />
             </div>
-          </div>
-          <div className="my-32" id="services">
-            <h2 className="text-center mb-12 text-4xl md:text-xl font-bold underline underline-offset-2">
-              Our Services
-            </h2>
-            <div className="grid grid-cols-3 gap-6 items-center">
+          </section>
+
+          <section className="section bg-gradient-to-b from-slate-50 to-white" id="services">
+            <div className="section-title">
+              <h2>Our Services</h2>
+              <p>Comprehensive technology solutions for your business needs</p>
+            </div>
+            <div className="grid grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-8">
               <Services
-                service=" Web Development"
-                icon={<SiWebmoney className="w-20 h-20 fill-secondary" />}
+                service="Web Development"
+                description="Custom web applications built with modern technologies and best practices."
+                icon={<SiWebmoney className="w-12 h-12 text-primary" />}
               />
               <Services
                 service="Software Development"
-                icon={<PiDevicesBold className="w-20 h-20 fill-secondary" />}
+                description="End-to-end software solutions tailored to your specific requirements."
+                icon={<PiDevicesBold className="w-12 h-12 text-primary" />}
               />
               <Services
-                service="Software Consultancy/Maintenance"
-                icon={<FaDesktop className="w-20 h-20 fill-secondary" />}
+                service="Software Consultancy"
+                description="Expert guidance and maintenance services to keep your systems running smoothly."
+                icon={<FaDesktop className="w-12 h-12 text-primary" />}
               />
             </div>
-          </div>
-          <div className="my-32">
-            <h2 className="text-center mb-12 text-4xl md:text-xl font-bold underline underline-offset-2">
-              Our Team
-            </h2>
-            <div className="grid grid-cols-4 gap-2">
+          </section>
+
+          <section className="section" id="team">
+            <div className="section-title">
+              <h2>Meet Our Team</h2>
+              <p>Experienced professionals dedicated to your success</p>
+            </div>
+            <div className="grid grid-cols-4 md:grid-cols-2 sm:grid-cols-1 gap-8">
               <Team
                 fullName="Usman Yahaya"
                 name="usman"
                 bio="Frontend Developer || Data Scientist || UI/UX Designer"
-                img={usman}
+                img="/images/usman.jpg"
                 githubLink="https://github.com/Usmaniyya"
-                twitterLink="hhtps://twitter.com/Y_Uthmaan"
-                linkedInLink="hhtps://linkedin.com"
+                twitterLink="https://twitter.com/Y_Uthmaan"
+                linkedInLink="https://linkedin.com"
               />
               <Team
                 fullName="Khalid Abdullahi"
                 name="khalid"
                 bio="Backend Developer || Data Analyst || Project Manager"
-                img={khalid}
+                img="/images/khalid.jpg"
                 githubLink="https://github.com/Usmaniyya"
-                twitterLink="hhtps://twitter.com/Y_Uthmaan"
-                linkedInLink="hhtps://linkedin.com"
+                twitterLink="https://twitter.com/Y_Uthmaan"
+                linkedInLink="https://linkedin.com"
               />
               <Team
                 fullName="Umar Suleiman"
                 name="umar"
                 bio="Product Designer || UI/UX Designer || Software Analyst"
-                img={umar}
+                img="/images/umar.jpg"
                 githubLink="https://github.com/Usmaniyya"
-                twitterLink="hhtps://twitter.com/Y_Uthmaan"
-                linkedInLink="hhtps://linkedin.com"
+                twitterLink="https://twitter.com/Y_Uthmaan"
+                linkedInLink="https://linkedin.com"
               />
-
               <Team
                 fullName="Salisu Ibrahim"
                 name="salisu"
                 bio="Data Scientist || Data Analyst || Machine Learning Engineer"
-                img={salisu}
+                img="/images/salisu.jpg"
                 githubLink="https://github.com/Usmaniyya"
-                twitterLink="hhtps://twitter.com/Y_Uthmaan"
-                linkedInLink="hhtps://linkedin.com"
+                twitterLink="https://twitter.com/Y_Uthmaan"
+                linkedInLink="https://linkedin.com"
               />
             </div>
-          </div>
+          </section>
+
+          <section className="section bg-primary text-white text-center" id="contact">
+            <div className="max-w-2xl mx-auto">
+              <h2 className="text-3xl font-bold mb-4">Ready to Get Started?</h2>
+              <p className="text-lg mb-8 opacity-90">
+                Let's discuss how we can help transform your business with innovative technology solutions.
+              </p>
+              <Link href="mailto:usmanyahaya6967@gmail.com" target="_blank" className="btn-base bg-white text-primary hover:bg-slate-50 inline-flex">
+                Contact Us
+                <MdArrowForward className="w-5 h-5 ml-2" />
+              </Link>
+            </div>
+          </section>
         </Layout>
       </main>
     </>
