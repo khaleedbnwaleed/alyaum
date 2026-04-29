@@ -10,6 +10,9 @@ import gallery1 from '../../public/images/1.jpeg'
 import gallery2 from '../../public/images/2.jpeg'
 import gallery3 from '../../public/images/3.jpeg'
 import gallery4 from '../../public/images/4.jpeg'
+import amigoImg from '../../public/images/Amigo.jpg'
+import ibrahimImg from '../../public/images/Ibrahim.png'
+import abdulImg from '../../public/images/Abdul.jpg'
 import Link from 'next/link'
 import { SiWebmoney } from 'react-icons/si'
 import { FaDesktop } from 'react-icons/fa'
@@ -353,7 +356,7 @@ export default function Home() {
               <h2>Meet Our Team</h2>
               <p>Experienced professionals dedicated to your success</p>
             </div>
-            <div className="grid grid-cols-4 md:grid-cols-2 sm:grid-cols-1 gap-8">
+            <div className="grid grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-8">
               <Team
                 fullName="Usman Yahaya"
                 name="usman"
@@ -388,6 +391,33 @@ export default function Home() {
                 img="/images/salisu.jpg"
                 githubLink="https://github.com/Usmaniyya"
                 twitterLink="https://twitter.com/Y_Uthmaan"
+                linkedInLink="https://linkedin.com"
+              />
+              <Team
+                fullName="Muhammad K. Muhammad"
+                name="amigo"
+                bio="Chief Technology Officer"
+                img="/images/Amigo.jpg"
+                githubLink="https://github.com"
+                twitterLink="https://twitter.com"
+                linkedInLink="https://linkedin.com"
+              />
+              <Team
+                fullName="Ibrahim Suleiman"
+                name="ibrahim"
+                bio="Technical Officer"
+                img="/images/Ibrahim.png"
+                githubLink="https://github.com"
+                twitterLink="https://twitter.com"
+                linkedInLink="https://linkedin.com"
+              />
+              <Team
+                fullName="Abdulhakim Aminu"
+                name="abdul"
+                bio="Project Lead"
+                img="/images/Abdul.jpg"
+                githubLink="https://github.com"
+                twitterLink="https://twitter.com"
                 linkedInLink="https://linkedin.com"
               />
             </div>
