@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Layout from '@/components/Layout'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import bgImage from '../../public/images/bg-image.jpg'
 import binAmeenImg from '../../public/images/bin-ameen.png'
 import iksNigeriaImg from '../../public/images/iks-nigeria.png'
@@ -203,6 +203,89 @@ const GalleryCarousel = ({ gallery1, gallery2, gallery3, gallery4 }) => {
   )
 }
 
+const TeamCarousel = ({ teamMembers }) => {
+  const [currentSlide, setCurrentSlide] = useState(0)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % Math.ceil(teamMembers.length / 3))
+    }, 3000)
+    return () => clearInterval(interval)
+  }, [teamMembers.length])
+
+  const itemsPerSlide = 3
+  const totalSlides = Math.ceil(teamMembers.length / itemsPerSlide)
+  const visibleMembers = teamMembers.slice(
+    currentSlide * itemsPerSlide,
+    (currentSlide + 1) * itemsPerSlide
+  )
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % totalSlides)
+  }
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides)
+  }
+
+  return (
+    <div className="space-y-6">
+      {/* Carousel Container */}
+      <div className="relative">
+        <div className="grid grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-8">
+          {visibleMembers.map((member, index) => (
+            <Team
+              key={index}
+              fullName={member.fullName}
+              name={member.name}
+              bio={member.bio}
+              img={member.img}
+              twitterLink={member.twitterLink}
+              linkedInLink={member.linkedInLink}
+              githubLink={member.githubLink}
+            />
+          ))}
+        </div>
+
+        {/* Navigation Buttons */}
+        <button
+          onClick={prevSlide}
+          className="absolute -left-16 md:-left-12 top-1/2 -translate-y-1/2 z-10 bg-primary hover:bg-primary/90 p-3 rounded-full transition-all duration-300 shadow-lg text-white"
+          aria-label="Previous slide"
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+
+        <button
+          onClick={nextSlide}
+          className="absolute -right-16 md:-right-12 top-1/2 -translate-y-1/2 z-10 bg-primary hover:bg-primary/90 p-3 rounded-full transition-all duration-300 shadow-lg text-white"
+          aria-label="Next slide"
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+
+      {/* Slide Indicators */}
+      <div className="flex justify-center gap-3">
+        {Array.from({ length: totalSlides }).map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentSlide(index)}
+            className={`w-3 h-3 rounded-full transition-all duration-300 ${
+              index === currentSlide ? 'bg-primary w-8' : 'bg-slate-300 hover:bg-slate-400'
+            }`}
+            aria-label={`Go to slide ${index + 1}`}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+
 const HeroSection = () => {
   return (
     <section className="section bg-gradient-to-br from-slate-50 to-white">
@@ -274,6 +357,72 @@ const AboutSection = () => {
   )
 }
 export default function Home() {
+  const teamMembers = [
+    {
+      fullName: "Usman Yahaya",
+      name: "usman",
+      bio: "Frontend Developer || Data Scientist || UI/UX Designer",
+      img: "/images/usman.jpg",
+      githubLink: "https://github.com/Usmaniyya",
+      twitterLink: "https://twitter.com/Y_Uthmaan",
+      linkedInLink: "https://linkedin.com",
+    },
+    {
+      fullName: "Khalid Abdullahi",
+      name: "khalid",
+      bio: "Backend Developer || Data Analyst || Project Manager",
+      img: "/images/khalid.jpg",
+      githubLink: "https://github.com/Usmaniyya",
+      twitterLink: "https://twitter.com/Y_Uthmaan",
+      linkedInLink: "https://linkedin.com",
+    },
+    {
+      fullName: "Umar Suleiman",
+      name: "umar",
+      bio: "Product Designer || UI/UX Designer || Software Analyst",
+      img: "/images/umar.jpg",
+      githubLink: "https://github.com/Usmaniyya",
+      twitterLink: "https://twitter.com/Y_Uthmaan",
+      linkedInLink: "https://linkedin.com",
+    },
+    {
+      fullName: "Salisu Ibrahim",
+      name: "salisu",
+      bio: "Data Scientist || Data Analyst || Machine Learning Engineer",
+      img: "/images/salisu.jpg",
+      githubLink: "https://github.com/Usmaniyya",
+      twitterLink: "https://twitter.com/Y_Uthmaan",
+      linkedInLink: "https://linkedin.com",
+    },
+    {
+      fullName: "Muhammad K. Muhammad",
+      name: "amigo",
+      bio: "Chief Technology Officer",
+      img: "/images/Amigo.jpg",
+      githubLink: "https://github.com",
+      twitterLink: "https://twitter.com",
+      linkedInLink: "https://linkedin.com",
+    },
+    {
+      fullName: "Ibrahim Suleiman",
+      name: "ibrahim",
+      bio: "Technical Officer",
+      img: "/images/Ibrahim.png",
+      githubLink: "https://github.com",
+      twitterLink: "https://twitter.com",
+      linkedInLink: "https://linkedin.com",
+    },
+    {
+      fullName: "Abdulhakim Aminu",
+      name: "abdul",
+      bio: "Project Lead",
+      img: "/images/Abdul.jpg",
+      githubLink: "https://github.com",
+      twitterLink: "https://twitter.com",
+      linkedInLink: "https://linkedin.com",
+    },
+  ]
+
   return (
     <>
       <Head>
@@ -356,71 +505,7 @@ export default function Home() {
               <h2>Meet Our Team</h2>
               <p>Experienced professionals dedicated to your success</p>
             </div>
-            <div className="grid grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-8">
-              <Team
-                fullName="Usman Yahaya"
-                name="usman"
-                bio="Frontend Developer || Data Scientist || UI/UX Designer"
-                img="/images/usman.jpg"
-                githubLink="https://github.com/Usmaniyya"
-                twitterLink="https://twitter.com/Y_Uthmaan"
-                linkedInLink="https://linkedin.com"
-              />
-              <Team
-                fullName="Khalid Abdullahi"
-                name="khalid"
-                bio="Backend Developer || Data Analyst || Project Manager"
-                img="/images/khalid.jpg"
-                githubLink="https://github.com/Usmaniyya"
-                twitterLink="https://twitter.com/Y_Uthmaan"
-                linkedInLink="https://linkedin.com"
-              />
-              <Team
-                fullName="Umar Suleiman"
-                name="umar"
-                bio="Product Designer || UI/UX Designer || Software Analyst"
-                img="/images/umar.jpg"
-                githubLink="https://github.com/Usmaniyya"
-                twitterLink="https://twitter.com/Y_Uthmaan"
-                linkedInLink="https://linkedin.com"
-              />
-              <Team
-                fullName="Salisu Ibrahim"
-                name="salisu"
-                bio="Data Scientist || Data Analyst || Machine Learning Engineer"
-                img="/images/salisu.jpg"
-                githubLink="https://github.com/Usmaniyya"
-                twitterLink="https://twitter.com/Y_Uthmaan"
-                linkedInLink="https://linkedin.com"
-              />
-              <Team
-                fullName="Muhammad K. Muhammad"
-                name="amigo"
-                bio="Chief Technology Officer"
-                img="/images/Amigo.jpg"
-                githubLink="https://github.com"
-                twitterLink="https://twitter.com"
-                linkedInLink="https://linkedin.com"
-              />
-              <Team
-                fullName="Ibrahim Suleiman"
-                name="ibrahim"
-                bio="Technical Officer"
-                img="/images/Ibrahim.png"
-                githubLink="https://github.com"
-                twitterLink="https://twitter.com"
-                linkedInLink="https://linkedin.com"
-              />
-              <Team
-                fullName="Abdulhakim Aminu"
-                name="abdul"
-                bio="Project Lead"
-                img="/images/Abdul.jpg"
-                githubLink="https://github.com"
-                twitterLink="https://twitter.com"
-                linkedInLink="https://linkedin.com"
-              />
-            </div>
+            <TeamCarousel teamMembers={teamMembers} />
           </section>
 
           <section className="section bg-gradient-to-b from-slate-50 to-white" id="gallery">
