@@ -4,8 +4,8 @@ module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
   theme: {
     colors: {
-      dark: '#0f172a',
-      light: '#f8fafc',
+      dark: '#0a0e27',
+      light: '#fafbfc',
       slate: {
         50: '#f8fafc',
         100: '#f1f5f9',
@@ -18,11 +18,12 @@ module.exports = {
         800: '#1e293b',
         900: '#0f172a',
       },
-      primary: '#0ea5e9',
-      secondary: '#06b6d4',
-      accent: '#f59e0b',
-      success: '#10b981',
-      danger: '#ef4444',
+      primary: '#0369a1',
+      secondary: '#0c4a6e',
+      tertiary: '#06b6d4',
+      accent: '#ec4899',
+      success: '#059669',
+      danger: '#dc2626',
       white: '#ffffff',
     },
 

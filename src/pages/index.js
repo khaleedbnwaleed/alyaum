@@ -1,7 +1,15 @@
 import Head from 'next/head'
 import Layout from '@/components/Layout'
 import Image from 'next/image'
+import { useState } from 'react'
 import bgImage from '../../public/images/bg-image.jpg'
+import binAmeenImg from '../../public/images/bin-ameen.png'
+import iksNigeriaImg from '../../public/images/iks-nigeria.png'
+import sharaEcoImg from '../../public/images/Shara_Eco.png'
+import gallery1 from '../../public/images/1.jpeg'
+import gallery2 from '../../public/images/2.jpeg'
+import gallery3 from '../../public/images/3.jpeg'
+import gallery4 from '../../public/images/4.jpeg'
 import Link from 'next/link'
 import { SiWebmoney } from 'react-icons/si'
 import { FaDesktop } from 'react-icons/fa'
@@ -82,6 +90,111 @@ const Team = ({
         >
           <LinkedInIcon />
         </a>
+      </div>
+    </div>
+  )
+}
+
+const GalleryCarousel = ({ gallery1, gallery2, gallery3, gallery4 }) => {
+  const [currentSlide, setCurrentSlide] = useState(0)
+  
+  const slides = [
+    { image: gallery1, title: 'Datathon Competition', alt: 'Click-on-Kaduna Datathon 2022 - Team Competition Moment 1' },
+    { image: gallery2, title: 'Team Collaboration', alt: 'Click-on-Kaduna Datathon 2022 - Team Collaboration Moment 2' },
+    { image: gallery3, title: 'Award Recognition', alt: 'Click-on-Kaduna Datathon 2022 - Award Recognition Moment 3' },
+    { image: gallery4, title: 'Team Achievement', alt: 'Click-on-Kaduna Datathon 2022 - Team Achievement Moment 4' },
+  ]
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % slides.length)
+  }
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)
+  }
+
+  return (
+    <div className="space-y-6">
+      {/* Main Carousel */}
+      <div className="relative w-full h-80 md:h-64 bg-slate-100 rounded-lg overflow-hidden group">
+        <div className="relative w-full h-full">
+          <Image
+            src={slides[currentSlide].image}
+            alt={slides[currentSlide].alt}
+            fill
+            sizes="(max-width: 768px) 100vw, 100vw"
+            className="object-cover"
+          />
+        </div>
+
+        {/* Navigation Buttons */}
+        <button
+          onClick={prevSlide}
+          className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white p-3 rounded-full transition-all duration-300 shadow-lg"
+          aria-label="Previous slide"
+        >
+          <svg className="w-6 h-6 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+
+        <button
+          onClick={nextSlide}
+          className="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white p-3 rounded-full transition-all duration-300 shadow-lg"
+          aria-label="Next slide"
+        >
+          <svg className="w-6 h-6 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+
+        {/* Slide Counter */}
+        <div className="absolute bottom-4 right-4 bg-black/60 text-white px-4 py-2 rounded-full text-sm font-semibold">
+          {currentSlide + 1} / {slides.length}
+        </div>
+      </div>
+
+      {/* Slide Info and Indicators */}
+      <div className="space-y-4">
+        <div className="text-center">
+          <h3 className="text-2xl font-semibold text-slate-900 mb-2">{slides[currentSlide].title}</h3>
+          <p className="text-slate-600">Moment {currentSlide + 1} of {slides.length}</p>
+        </div>
+
+        {/* Indicators */}
+        <div className="flex justify-center gap-3">
+          {slides.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentSlide(index)}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                index === currentSlide ? 'bg-accent w-8' : 'bg-slate-300 hover:bg-slate-400'
+              }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Thumbnail Grid */}
+      <div className="grid grid-cols-4 md:grid-cols-2 sm:grid-cols-2 gap-4">
+        {slides.map((slide, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentSlide(index)}
+            className={`relative h-24 rounded-lg overflow-hidden transition-all duration-300 ${
+              index === currentSlide ? 'ring-2 ring-accent scale-105' : 'ring-2 ring-transparent hover:ring-slate-300'
+            }`}
+          >
+            <Image
+              src={slide.image}
+              alt={`Thumbnail ${index + 1}`}
+              fill
+              sizes="(max-width: 768px) 100vw, 25vw"
+              className="object-cover"
+            />
+          </button>
+        ))}
       </div>
     </div>
   )
@@ -174,40 +287,40 @@ export default function Home() {
 
           <section className="section" id="products">
             <div className="section-title">
-              <h2>Our Products</h2>
-              <p>Innovative solutions designed for modern businesses</p>
+              <h2>Recent Projects</h2>
+              <p>Showcasing our successful client engagements and completed projects</p>
             </div>
             <div className="grid grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-8">
-              <Products
-                title="AlyaumHealth"
-                summary="State and federal health and social services face increasing challenges. We help them find their way forward with products designed to increase efficiency and improve health outcomes."
-                icon={<MdCheckCircle className="w-8 h-8 text-primary" />}
-                link={
-                  <Link href="/alyaum.ng" target="_blank" className="btn-outline text-sm">
-                    Learn More
-                  </Link>
-                }
-              />
-              <Products
-                title="AlyaumAgro"
-                summary="At AlyaumAgro, we focus on using the latest technology to optimize agricultural processes. We drive innovation by making this technology accessible to farmers."
-                icon={<MdCheckCircle className="w-8 h-8 text-primary" />}
-                link={
-                  <Link href="/alyaum.ng" target="_blank" className="btn-outline text-sm">
-                    Learn More
-                  </Link>
-                }
-              />
-              <Products
-                title="AlyaumLearn"
-                summary="AlyaumLearn is committed to providing access to global experiences through study abroad opportunities, scholarships, training, and professional development programs."
-                icon={<MdCheckCircle className="w-8 h-8 text-primary" />}
-                link={
-                  <Link href="/alyaum.ng" target="_blank" className="btn-outline text-sm">
-                    Learn More
-                  </Link>
-                }
-              />
+              <a href="https://www.binameenconsulting.com.ng/" target="_blank" rel="noopener noreferrer" className="card-hover overflow-hidden group">
+                <div className="relative w-full h-64 bg-slate-100">
+                  <Image src={binAmeenImg} alt="Bin-Ameen Consulting" fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className="object-contain p-6 hover:scale-105 transition-transform duration-300" />
+                </div>
+                <div className="p-6 text-center">
+                  <h3 className="text-xl font-semibold text-slate-900 mb-2">Bin-Ameen Consulting</h3>
+                  <p className="text-slate-600 text-sm mb-4">Professional consulting services and solutions</p>
+                  <span className="inline-flex items-center text-accent font-semibold group-hover:translate-x-1 transition-transform">Visit Site <MdArrowForward className="ml-2" /></span>
+                </div>
+              </a>
+              <a href="https://www.iksnigeria.ng/" target="_blank" rel="noopener noreferrer" className="card-hover overflow-hidden group">
+                <div className="relative w-full h-64 bg-slate-100">
+                  <Image src={iksNigeriaImg} alt="IKS Nigeria" fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className="object-contain p-6 hover:scale-105 transition-transform duration-300" />
+                </div>
+                <div className="p-6 text-center">
+                  <h3 className="text-xl font-semibold text-slate-900 mb-2">IKS Nigeria</h3>
+                  <p className="text-slate-600 text-sm mb-4">Innovation and knowledge solutions for growth</p>
+                  <span className="inline-flex items-center text-accent font-semibold group-hover:translate-x-1 transition-transform">Visit Site <MdArrowForward className="ml-2" /></span>
+                </div>
+              </a>
+              <a href="https://www.shara.com.ng/" target="_blank" rel="noopener noreferrer" className="card-hover overflow-hidden group">
+                <div className="relative w-full h-64 bg-slate-100">
+                  <Image src={sharaEcoImg} alt="Shara Eco" fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className="object-contain p-6 hover:scale-105 transition-transform duration-300" />
+                </div>
+                <div className="p-6 text-center">
+                  <h3 className="text-xl font-semibold text-slate-900 mb-2">Shara Eco</h3>
+                  <p className="text-slate-600 text-sm mb-4">E-commerce solutions and digital marketplace</p>
+                  <span className="inline-flex items-center text-accent font-semibold group-hover:translate-x-1 transition-transform">Visit Site <MdArrowForward className="ml-2" /></span>
+                </div>
+              </a>
             </div>
           </section>
 
@@ -280,17 +393,20 @@ export default function Home() {
             </div>
           </section>
 
-          <section className="section bg-primary text-white text-center" id="contact">
-            <div className="max-w-2xl mx-auto">
-              <h2 className="text-3xl font-bold mb-4">Ready to Get Started?</h2>
-              <p className="text-lg mb-8 opacity-90">
-                Let's discuss how we can help transform your business with innovative technology solutions.
-              </p>
-              <Link href="mailto:usmanyahaya6967@gmail.com" target="_blank" className="btn-base bg-white text-primary hover:bg-slate-50 inline-flex">
-                Contact Us
-                <MdArrowForward className="w-5 h-5 ml-2" />
-              </Link>
+          <section className="section bg-gradient-to-b from-slate-50 to-white" id="gallery">
+            <div className="section-title">
+              <h2>Gallery</h2>
+              <p>Click-on-Kaduna Datathon 2022 - Second Runner Up Achievement</p>
             </div>
+            <div className="mb-8 p-6 bg-white rounded-lg border-l-4 border-accent card">
+              <p className="text-slate-700 leading-relaxed mb-4">
+                Our team proudly emerged as <span className="font-semibold text-accent">Second Runner Up</span> at the prestigious Click-on-Kaduna Datathon 2022 competition. The Kaduna State government recognized our outstanding efforts in data digitization and innovative problem-solving, praising our contributions in the Daily Trust article.
+              </p>
+              <a href="https://dailytrust.com/kaduna-partners-experts-on-data-digitising-to-solve-development-problems/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-accent font-semibold hover:text-secondary transition-colors">
+                Read the Daily Trust article <MdArrowForward className="ml-2" />
+              </a>
+            </div>
+            <GalleryCarousel gallery1={gallery1} gallery2={gallery2} gallery3={gallery3} gallery4={gallery4} />
           </section>
         </Layout>
       </main>

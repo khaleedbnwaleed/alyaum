@@ -46,15 +46,15 @@ p {
 }
 
 .btn-primary {
-  @apply btn-base bg-primary hover:bg-secondary text-white shadow-medium hover:shadow-lg;
+  @apply btn-base bg-primary hover:bg-secondary text-white shadow-medium hover:shadow-lg transition-all;
 }
 
 .btn-secondary {
-  @apply btn-base bg-slate-100 hover:bg-slate-200 text-slate-900 border border-slate-200;
+  @apply btn-base bg-slate-200 hover:bg-slate-300 text-slate-900 border border-slate-300 transition-all;
 }
 
 .btn-outline {
-  @apply btn-base border-2 border-primary text-primary hover:bg-primary hover:text-white;
+  @apply btn-base border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all;
 }
 
 /* Card Styles */
